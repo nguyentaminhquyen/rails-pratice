@@ -1,0 +1,25 @@
+version: '2'
+services:
+  app:
+    build: .
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: mysql2://root:ntmq@mysql:3306
+      MYSQL_ROOT_PASSWORD: 'ntmq'
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+    links:
+      - mysql
+  mysql:
+    image: mysql:5.7.20
+    environment:
+       MYSQL_ROOT_PASSWORD: 'ntmq'
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql:rw
+volumes:
+  mysql-data:
+    driver: local
